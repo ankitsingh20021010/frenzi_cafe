@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard - Frenzi Cafe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+     <style>
+    body {
+      background-image: url("https://lh3.googleusercontent.com/gps-cs-s/AC9h4nr0PGulQ7ZoVPPrzPpGU8RzNmujFqsCAVZ0ZH65HjoifyOZ4sM_VeuaqjPNDWzQyVrXRqyxCLbm8SCkfueOboT0p8X1--zaG61VIjtA0d1S3_oc8baBvaD9uiL71ga_Kc2PQGFW=s1360-w1360-h1020-rw");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
+<div class="max-w-5xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">
+            Welcome, {{ session['username'] }} 👋
+        </h2>
+        <div class="flex space-x-3">
+            {% if session['username'] == 'admin' %}
+            <a href="{{ url_for('employee_list') }}"
+               class="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+                👥 View Employees
+            </a>
+           <a href="{{ url_for('approve_users') }}">Approve Users</a>
+
+              
+            {% endif %}
+            <a href="{{ url_for('history') }}"
+               class="px-4 py-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition">
+                📜 View History
+            </a>
+            <a href="{{ url_for('logout') }}"
+               class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition">
+                Logout
+            </a>
+        </div>
+    </div>
+
+    <!-- Tables Grid -->
+    <h3 class="text-xl font-semibold text-gray-700 mb-4">Active Tables</h3>
+    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+        {% for table in tables %}
+        <a href="{{ url_for('table_detail', table_id=table) }}"
+           class="bg-blue-100 hover:bg-blue-200 text-center py-6 rounded-lg shadow text-xl font-bold text-blue-800 transition">
+            Table {{ table }}
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+</body>
+</html>

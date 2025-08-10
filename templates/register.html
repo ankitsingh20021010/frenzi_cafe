@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Register - Frenzi Cafe</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-image: url("https://lh3.googleusercontent.com/gps-cs-s/AC9h4nr0PGulQ7ZoVPPrzPpGU8RzNmujFqsCAVZ0ZH65HjoifyOZ4sM_VeuaqjPNDWzQyVrXRqyxCLbm8SCkfueOboT0p8X1--zaG61VIjtA0d1S3_oc8baBvaD9uiL71ga_Kc2PQGFW=s1360-w1360-h1020-rw");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
+    <div class="text-xl font-bold text-gray-800">☕ Frenzi Cafe</div>
+    <div>
+      <a href="{{ url_for('login') }}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+        Login
+      </a>
+    </div>
+  </nav>
+
+  <!-- Register Form -->
+  <div class="flex justify-center items-center mt-10">
+    <div class="bg-white bg-opacity-90 backdrop-blur-md p-8 rounded-2xl shadow-lg border border-gray-300 w-96">
+      <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Register</h2>
+      <form method="POST" action="{{ url_for('register') }}">
+        <div class="mb-4">
+          <label class="block font-semibold text-gray-700">Username</label>
+          <input type="text" name="username" required class="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        </div>
+        <div class="mb-6">
+          <label class="block font-semibold text-gray-700">Password</label>
+          <input type="password" name="password" required class="w-full border px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-blue-400" />
+        </div>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded w-full hover:bg-blue-600">
+          Register
+        </button>
+      </form>
+      <p class="text-center mt-4 text-sm text-gray-700">
+        Already have an account?
+        <a href="{{ url_for('login') }}" class="text-blue-500">Login</a>
+      </p>
+    </div>
+  </div>
+
+</body>
+</html>

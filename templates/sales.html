@@ -1,0 +1,43 @@
+<!-- templates/sales.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Today's Total Sales</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            background-color: #f0f2f5;
+            padding: 40px;
+            text-align: center;
+        }
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 10px;
+            display: inline-block;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #333;
+        }
+        .amount {
+            font-size: 48px;
+            color: green;
+            margin-top: 20px;
+        }
+        a {
+            margin-top: 30px;
+            display: inline-block;
+            color: #007bff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2>🧾 Total Sales for {{ today }}</h2>
+        <div class="amount">₹ {{ total_sales }}</div>
+        <a href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
+    </div>
+</body>
+</html>

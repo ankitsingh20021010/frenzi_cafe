@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order History - Frenzi Cafe</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+
+<div class="max-w-6xl mx-auto mt-10 p-6 bg-white rounded-lg shadow-lg">
+
+    <!-- Header -->
+    <div class="flex justify-between items-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-800">📜 Order History</h2>
+        <a href="{{ url_for('dashboard') }}"
+           class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition">
+            ← Back to Dashboard
+        </a>
+    </div>
+
+    <!-- Filter Dropdown -->
+    <form method="GET" action="{{ url_for('history') }}" class="mb-6">
+        <label for="filter" class="text-sm font-semibold text-gray-700 mr-2">Filter by:</label>
+        <select name="filter" id="filter" class="px-3 py-2 border border-gray-300 rounded">
+            <option value="all" {% if selected_filter == 'all' %}selected{% endif %}>All</option>
+            <option value="today" {% if selected_filter == 'today' %}selected{% endif %}>Today</option>
+            <option value="last_week" {% if selected_filter == 'last_week' %}selected{% endif %}>Last Week</option>
+            <option value="last_month" {% if selected_filter == 'last_month' %}selected{% endif %}>Last Month</option>
+        </select>
+        <button type="submit" class="ml-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600">Apply</button>
+    </form>
+
+    <!-- ✅ Total Sales Display -->
+    {% if orders and orders|length > 0 %}
+    <div class="mb-4 text-right">
+       <span class="text-lg font-semibold text-gray-700">Total Sales: ₹{{ "%.2f"|format(total) }}</span>
+    </div>
+    {% endif %}
+
+    <!-- History Table -->
+    {% if orders and orders|length > 0 %}
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white border border-gray-300 rounded-lg shadow">
+            <thead class="bg-gray-200">
+                <tr>
+                    <th class="px-4 py-2 border text-left text-sm font-semibold text-gray-700">Table</th>
+                    <th class="px-4 py-2 border text-left text-sm font-semibold text-gray-700">Items</th>
+                    <th class="px-4 py-2 border text-left text-sm font-semibold text-gray-700">Amount (₹)</th>
+                    <th class="px-4 py-2 border text-left text-sm font-semibold text-gray-700">Timestamp</th>
+                    <th class="px-4 py-2 border text-left text-sm font-semibold text-gray-700">Created By</th> <!-- ✅ New column -->
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-100">
+                {% for order in orders %}
+                <tr class="hover:bg-gray-50">
+                    <td class="px-4 py-2 border font-medium text-gray-800">Table {{ order.table_number }}</td>
+                    <td class="px-4 py-2 border text-gray-700">{{ order.items }}</td>
+                    <td class="px-4 py-2 border text-green-600 font-semibold">₹{{ "%.2f"|format(order.amount) }}</td>
+                    <td class="px-4 py-2 border text-sm text-gray-600">
+                        {{ order.timestamp.strftime('%d-%m-%Y %I:%M %p') if order.timestamp else "N/A" }}
+                    </td>
+                    <td class="px-4 py-2 border text-sm text-gray-800">{{ order.created_by or "Unknown" }}</td> <!-- ✅ Show created_by -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="text-gray-500 italic text-center mt-4">No order history available for the selected filter.</p>
+    {% endif %}
+
+</div>
+
+</body>
+</html>

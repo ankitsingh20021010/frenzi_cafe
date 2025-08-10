@@ -1,0 +1,80 @@
+<!-- templates/login.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Frenzi Cafe Login</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background-image: url("https://lh3.googleusercontent.com/gps-cs-s/AC9h4nr0PGulQ7ZoVPPrzPpGU8RzNmujFqsCAVZ0ZH65HjoifyOZ4sM_VeuaqjPNDWzQyVrXRqyxCLbm8SCkfueOboT0p8X1--zaG61VIjtA0d1S3_oc8baBvaD9uiL71ga_Kc2PQGFW=s1360-w1360-h1020-rw");
+      background-size: cover;
+      
+      background-repeat: no-repeat;
+      background-position: center;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gray-100 bg-opacity-50">
+
+  <!-- Navbar -->
+  <nav class="bg-white shadow-md py-4 px-6 flex justify-between items-center">
+    <div class="text-xl font-bold text-gray-800">☕ Frenzi Cafe</div>
+    <div>
+      <a href="{{ url_for('register') }}" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded">
+        Register
+      </a>
+    </div>
+  </nav>
+
+  <!-- Login Form -->
+  <div class="flex items-center justify-center mt-12">
+    <div class="bg-white bg-opacity-90 backdrop-blur-md p-8 rounded-2xl shadow-lg border border-gray-300 w-full max-w-md">
+      <h2 class="text-2xl font-bold mb-6 text-center text-gray-800">Login to Frenzi Cafe</h2>
+
+      <!-- Flash messages -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          {% for category, message in messages %}
+            <div class="mb-4 px-4 py-2 rounded text-center font-semibold 
+                {% if category == 'success' %} text-green-600 bg-green-100
+                {% elif category == 'error' or category == 'danger' %} text-red-600 bg-red-100
+                {% else %} text-yellow-600 bg-yellow-100 {% endif %}">
+              {{ message }}
+            </div>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+
+      <!-- Login Form -->
+      <form method="POST" action="{{ url_for('login') }}">
+        {% if form %}
+          {{ form.hidden_tag() }}
+        {% endif %}
+
+        <div class="mb-4">
+          <label class="block font-semibold text-gray-700">Username</label>
+          <input type="text" name="username" required 
+                 class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
+        </div>
+
+        <div class="mb-6">
+          <label class="block font-semibold text-gray-700">Password</label>
+          <input type="password" name="password" required 
+                 class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-blue-400">
+        </div>
+
+        <button type="submit" class="w-full bg-blue-500 hover:bg-blue-600 text-white p-2 rounded font-semibold transition">
+          Login
+        </button>
+      </form>
+
+      <p class="text-center mt-4 text-sm text-gray-700">
+        Don't have an account?
+        <a href="{{ url_for('register') }}" class="text-blue-500 hover:underline">Register</a>
+      </p>
+    </div>
+  </div>
+
+</body>
+</html>
